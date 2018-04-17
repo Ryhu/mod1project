@@ -1,15 +1,11 @@
 require 'tty-prompt'
-require './classes/pc.rb'
+require './classes/player.rb'
 require './classes/enemy.rb'
+require './classes/location.rb'
 
-player = Player.new("bob", 5,4,3)
-enemy = Enemy.new("bobbert", 5,4,3)
+location = Location.new()
+location.here
 
-
-
-prompt = TTY::Prompt.new(active_color: :cyan)
-prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
-puts prompt.output
 
 # =>
 # Choose your destiny? (Use arrow keys, press Enter to select)
