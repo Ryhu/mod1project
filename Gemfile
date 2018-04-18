@@ -13,6 +13,7 @@ gem 'thin'
 gem 'shotgun'
 gem 'pry'
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+gem 'tty'
 
 group :test do
   gem 'rspec'
