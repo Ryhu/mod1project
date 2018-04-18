@@ -26,7 +26,7 @@ class Location < ActiveRecord::Base
 
   #this is where you are, just prints your current location, links to options
   def here
-    puts ("you are currently in the #{@location}")
+    puts ("you are currently in the #{self.location}")
     actions
   end
 
