@@ -10,11 +10,11 @@ class Location < ActiveRecord::Base
     # size
     #map has variable size, can be set on initiaite, OR can be set statically beforehand
     @location_progress = 1
-    @current_location = 0
+    #@current_location = 0
   end
 
   def location
-    @location = Location.all[current_location]
+    @location = Location.all[0].name
   end
 
   def narrate(string)
