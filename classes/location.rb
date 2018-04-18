@@ -12,8 +12,8 @@ class Location
     STDIN.getch
   end
 
-  def initialize(player=Player.new("bob", 30,5,0), location = "forest")
-    @player = player
+  def initialize(location = "forest")
+    @player = Player.new("bob", 30,5,0)
     @location = location
     @prompt = TTY::Prompt.new(active_color: :cyan)
     # size

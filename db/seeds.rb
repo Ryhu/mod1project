@@ -8,7 +8,11 @@ c1 = Character.create(name: Faker::GameOfThrones.unique.character, max_hp: 100, 
 Player.create(xp: 0, level: 1, character: c1)
 #Player.new(xp: 15, level: 2, character: c2)
 
-Pry.start
+
+guy = Player.new("bob", 30, 7, 2)
+Location.new(guy, "forest")
+Location.new(guy, "desert")
+# ?Pry.start
 # Enemy.new(name: Faker::GameOfThrones.unique.dragon, max_hp: 300, atk_amount: 20, def_amount: 10)
 
 # Location.new(name: Faker::GameOfThrones.city)
