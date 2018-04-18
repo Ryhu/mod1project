@@ -19,16 +19,35 @@ class Inventory
     slots = @equipment.map do |el|
       el.type
     end
-    if !slots.include?(item.type)
-      # write equip message
+    if slots.include?(item.type)
+      false
     else
-      #write failure message
+      true
     end
   end
 
   def equip(item)
-    @equipment << item
-    equipment_calculate(item.boosts)
+    if can_equip(item)
+      @equipment << item
+      equipment_calculate(item.boosts)
+    else
+      equip_replace(item)
+    end
+  end
+
+  def equip_replace(item)
+    #find the replaced item
+    replaced = @equipment.find do |el|
+      el.type = item.type
+    end
+    #remove the item's stats from ur boosts
+    @boosts.each do |key, val|
+      @boosts[key] -= boosts[key].to_i
+    end
+    #remove the item from equipment
+    @equipment.delete(replaced)
+    #equip the new item
+    equip(item)
   end
 
   def equipment_calculate(boosts)
