@@ -14,6 +14,18 @@ class Inventory
     @inventory << item
   end
 
+  # checks to see if equipment can be equipped
+  def can_equip(item)
+    slots = @equipment.map do |el|
+      el.type
+    end
+    if !slots.include?(item.type)
+      # write equip message
+    else
+      #write failure message
+    end
+  end
+
   def equip(item)
     @equipment << item
     equipment_calculate(item.boosts)

@@ -3,6 +3,7 @@ class Item
   def initialize(name, type, boosts)
     @name = name
     @type = type
+    #types - equipment - head, body, lower, weapon
     @boosts = boosts_translator(boosts)
   end
 
