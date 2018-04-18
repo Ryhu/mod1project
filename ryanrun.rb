@@ -1,13 +1,13 @@
-require 'tty-prompt'
-require './classes/player.rb'
-require './app/models/event.rb'
-
+require './app/models/player.rb'
+require './app/models/enemy.rb'
 require 'pry'
 
-eve = Event.new("lucky!", "you found a sword on the ground!", "pick up the sword?", "you leave the sword as is", "you pick up a sword!", "get", 5)
-guy = Player.new(guy, 30,7,2)
 
-eve.happen(guy)
+
+#eve = Event.new("lucky!", "you found a sword on the ground!", "pick up the sword?", "you leave the sword as is", "you pick up a sword!", "get", 5)
+guy = Player.create({name: "guy", hp: 30, attack:7, defence:2})
+puts Player.find_by(name: "guy")
+#eve.happen(guy)
 
 
 
