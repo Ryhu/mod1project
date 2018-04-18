@@ -4,6 +4,7 @@ class Player
   attr_accessor :name, :hp, :attack, :defence, :max_hp, :items
 
     def initialize(name, hp, attack, defence)
+      @inventory = Inventory.new(self)
       @name = name
       @hp = hp
       @max_hp = hp
