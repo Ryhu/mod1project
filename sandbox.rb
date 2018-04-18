@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 require 'tty-prompt'
 require './classes/player.rb'
 require './classes/enemy.rb'
@@ -21,19 +20,3 @@ location.here
 # ‣ Scorpion
 #   Kano
 #   Jax
-=======
-# require 'tty-prompt'
-# require './classes/player.rb'
-# require './classes/enemy.rb'
-# require './classes/location.rb'
-#
-# # location = Location.new()
-# # location.here
-#
-#
-# # =>
-# # Choose your destiny? (Use arrow keys, press Enter to select)
-# # ‣ Scorpion
-# #   Kano
-# #   Jax
->>>>>>> 04d5d01c8240153b75222f7ea99e2a1e6398db3a
