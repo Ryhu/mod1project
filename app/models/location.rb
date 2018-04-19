@@ -1,4 +1,5 @@
 require "pry"
+require_all "app"
 
 class Location < ActiveRecord::Base
   has_many :location_enemies
@@ -23,7 +24,6 @@ class Location < ActiveRecord::Base
   end
 
   def drop(player)
-  @zone_max = 10
   #add zone to player
   @zone_cur = 0
   @player = player
@@ -53,16 +53,23 @@ class Location < ActiveRecord::Base
   def actions
     answer = @prompt.select("Where will you go?", %w(Foward Back Status Items), cycle:true, per_page:4)
     if answer == "Foward"
-      @zone_cur += 1
-      narrate("you continue foward")
-
-
-      encounter_check
+      if @zone_cur == 10
+        narrate("you leave the #{self.name}")
+        leave(self.exit_name)
+      else
+        @zone_cur += 1
+        narrate("you continue foward")
+        encounter_check
+      end
     elsif answer == "Back"
-      @zone_cur -= 1
-      narrate("you retreat backwards")
-
-      encounter_check
+      if @zone_cur == 0
+        narrate("you leave the #{self.name}")
+        leave(self.entrance_name)
+      else
+        @zone_cur -= 1
+        narrate("you retreat backwards")
+        encounter_check
+      end
     else
 
       narrate("#{@player.name} has #{@player.hp} hp.")
@@ -73,7 +80,7 @@ class Location < ActiveRecord::Base
 
   #roll for monster apearances
   def encounter_check
-    if (rand(0..1) == 1)
+    if (rand(0..0) == 1)
       random_encounter
     else
       here
@@ -88,4 +95,14 @@ class Location < ActiveRecord::Base
       here
     end
   end
+
+  #handles going into another area
+  def leave(place)
+    a = Town.find_by(name: place)
+    narrate("You arrive at the #{a.name}")
+    a.drop(@player)
+  end
+
+
+
 end

@@ -9,7 +9,7 @@ class Town < ActiveRecord::Base
       npc_arr = [npca,npcb,npcc]
       @npcs = npc_arr
     @player = player
-    @name = "Hogwarts"
+    @name = self.name
     @prompt = TTY::Prompt.new(active_color: :cyan)
     here
   end
@@ -90,16 +90,18 @@ class Town < ActiveRecord::Base
     end
   end
 
-  def leave
-    narrate("You leave the town, and continue on your adventure")
-    Location.first.drop(@player)
-  end
-
   def trading_post
     narrate("it's closed.")
     here
   end
 
+  def leave
+    narrate("You leave the town, and continue on your adventure")
+    #find where the town exits to, find the object, and drop the player in
+    a = Location.find_by(name: self.exit_name)
+    narrate("You arrive at the #{a.name}")
+    a.drop(@player)
+  end
 
 
   #what do you do in Town

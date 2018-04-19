@@ -29,7 +29,7 @@ class Startup
     newb = Player.create(name: @name, hp: 30, max_hp: 30, attack:7, defence:2)
     narrate("Welcome, #{@name} the #{@class}!")
     #drops player in starting location
-    Town.new.drop(newb)
+    Town.find_by(name: "Skystead").drop(newb)
   end
 
   def set_name
