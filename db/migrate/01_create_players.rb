@@ -6,6 +6,8 @@ class CreatePlayers < ActiveRecord::Migration[5.1]
       t.integer :max_hp
       t.integer :attack
       t.integer :defence
+      t.string :location
+      t.integer :money
     end
   end
 end

@@ -31,6 +31,7 @@ require 'pry'
 
 
 start = Startup.new()
+
 start.start
 #eve.happen(guy)6
 

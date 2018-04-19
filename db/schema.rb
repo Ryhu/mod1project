@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 10) do
+ActiveRecord::Schema.define(version: 11) do
 
   create_table "enemies", force: :cascade do |t|
     t.string "name"
@@ -48,6 +48,12 @@ ActiveRecord::Schema.define(version: 10) do
     t.string "exit_name"
   end
 
+  create_table "logins", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.integer "player_id"
+  end
+
   create_table "player_skills", force: :cascade do |t|
     t.integer "player_id"
     t.integer "skill_id"
@@ -59,6 +65,8 @@ ActiveRecord::Schema.define(version: 10) do
     t.integer "max_hp"
     t.integer "attack"
     t.integer "defence"
+    t.string "location"
+    t.integer "money"
   end
 
   create_table "skills", force: :cascade do |t|
