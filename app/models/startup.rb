@@ -14,7 +14,7 @@ class Startup
   end
 
   def start
-    answer = @prompt.select("Welcome to mod1proj!", %w(Continue New_Game), cycle:true)
+    answer = @prompt.select("Welcome to mod1proj!", %w(Continue New_Game Delete), cycle:true)
     if answer == 'Continue'
       login = sign_in
       player = Player.find(login.player_id)
@@ -22,10 +22,21 @@ class Startup
       narrate("Welcome, #{player.name}!")
       narrate("You arrive in #{town.name}")
       town.drop(player)
-    else
+    elsif answer == 'New_Game'
       puts
       a = sign_up
-      create_character(a)
+      if a != nil
+        create_character(a)
+      end
+
+    else
+      puts "log in with the file you want to delete"
+      a = sign_in
+      if a != nil
+        delete_character(a)
+        narrate "Returning to main menu"
+        start
+      end
     end
   end
 
@@ -40,8 +51,19 @@ class Startup
     if a == nil
       narrate("Could not log in with that username/password combo, returning to main menu.")
       start
+      return nil
     else
       a
+    end
+  end
+
+  def delete_character(login)
+    answer = @prompt.select("Are you sure you want to destroy your data?", %w(No Yes), cycle:true)
+    if answer == "Yes"
+      player = Player.find(login.player_id)
+      player.destroy
+      login.destroy
+      narrate("Account and character destroyed.")
     end
   end
 
