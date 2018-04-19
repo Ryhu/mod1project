@@ -25,7 +25,7 @@ class Player < ActiveRecord::Base
   end
 
   def can_equip(item) #argument is an Item instance
-    slots = self.load_equip.map do |el|
+    slots = @equipment.map do |el|
       el.category
     end
     if slots.include?(item.category)
@@ -38,16 +38,17 @@ class Player < ActiveRecord::Base
   def equip(item) #argument is an Item instance
     if can_equip(item)
       @equipment << item
-      equipment_calculate(item.stats)
+      equipment_calculate(item)
     else
       equip_replace(item)
     end
+    self.items << item
   end
 
   def equip_replace(item) #argument is an Item instance
     #find the replaced item
     replaced = @equipment.find do |el|
-      el.category = item.category
+      el.category == item.category
     end
     stats = replaced.stats_translator
     #remove the item's stats from ur stats
@@ -55,12 +56,15 @@ class Player < ActiveRecord::Base
     self.attack -= stats['ATK'].to_i
     self.defence -= stats['DEF'].to_i
     #remove the item from equipment
-    @equipment.delete(replaced)
+    self.load_equip.delete(replaced)
+    self.items.where(name: replaced.name).each {|o| o.destroy}
+    binding.pry
     #equip the new item
     equip(item)
   end
 
-  def equipment_calculate(stats)
+  def equipment_calculate(item)
+    stats = item.stats_translator
     self.hp += stats['HP'].to_i
     self.attack += stats['ATK'].to_i
     self.defence += stats['DEF'].to_i
