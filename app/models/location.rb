@@ -25,6 +25,12 @@ class Location < ActiveRecord::Base
   def drop(player)
   @player = player
   @prompt = TTY::Prompt.new(active_color: :cyan)
+
+  @enemy_list = LocationEnemy.where(location_id: self.id).map do |el|
+    Enemy.find(el.enemy_id)
+  end
+
+
   here
   end
 
@@ -36,7 +42,7 @@ class Location < ActiveRecord::Base
 
   #what u can do at a location, status gives u your Status
   def actions
-    answer = @prompt.select("Where will you go?", %w(Foward Back Status), cycle:true)
+    answer = @prompt.select("Where will you go?", %w(Foward Back Status Items), cycle:true, per_page:4)
     if answer == "Foward"
 
       narrate("you continue foward")
@@ -68,7 +74,7 @@ class Location < ActiveRecord::Base
   #handles the monster encounter if u get one
   def random_encounter
     narrate("an enemy appears!")
-    a = Fight.new(@player)
+    a = Fight.new(@player, @enemy_list.sample)
     if a.now
       here
     end
