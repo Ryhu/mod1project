@@ -15,12 +15,13 @@ LocationEnemy.create(enemy_id: baddy1.id, location_id: place.id)
 LocationEnemy.create(enemy_id: baddy2.id, location_id: place.id)
 LocationEnemy.create(enemy_id: baddy3.id, location_id: place.id)
 
+
 enemy_list = LocationEnemy.where(location_id: "10").map do |el|
   Enemy.find(el.enemy_id)
 end
 
-
-place.drop(guy)
+start = Startup.new()
+start.start
 #eve.happen(guy)6
 
 

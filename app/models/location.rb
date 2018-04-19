@@ -42,7 +42,7 @@ class Location < ActiveRecord::Base
 
   #what u can do at a location, status gives u your Status
   def actions
-    answer = @prompt.select("Where will you go?", %w(Foward Back Status), cycle:true)
+    answer = @prompt.select("Where will you go?", %w(Foward Back Status Items), cycle:true, per_page:4)
     if answer == "Foward"
 
       narrate("you continue foward")
