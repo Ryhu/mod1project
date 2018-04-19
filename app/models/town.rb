@@ -108,6 +108,6 @@ class Town
   #what do you do in Town
   #inn, heal
   #shop, buy stuff
-  #town_square, trade with players
-  #trading post, talk with guys
+  #town_square, talk with guys
+  #trading post, trade with players
 end

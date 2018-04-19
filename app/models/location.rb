@@ -23,6 +23,9 @@ class Location < ActiveRecord::Base
   end
 
   def drop(player)
+  @zone_max = 10
+  #add zone to player
+  @zone_cur = 0
   @player = player
   @prompt = TTY::Prompt.new(active_color: :cyan)
 
@@ -36,7 +39,13 @@ class Location < ActiveRecord::Base
 
   #this is where you are, just prints your current location, links to options
   def here
-    narrate("you are currently in the #{self.name}")
+    if @zone_cur == 0
+      narrate("you are currently at the #{self.name} entrance")
+    elsif @zone_cur == 10
+      narrate("you are currently at the #{self.name} exit!")
+    else
+      narrate("you are currently in the #{self.name}")
+    end
     actions
   end
 
@@ -44,13 +53,13 @@ class Location < ActiveRecord::Base
   def actions
     answer = @prompt.select("Where will you go?", %w(Foward Back Status Items), cycle:true, per_page:4)
     if answer == "Foward"
-
+      @zone_cur += 1
       narrate("you continue foward")
 
 
       encounter_check
     elsif answer == "Back"
-
+      @zone_cur -= 1
       narrate("you retreat backwards")
 
       encounter_check
