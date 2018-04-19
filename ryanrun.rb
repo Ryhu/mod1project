@@ -6,9 +6,19 @@ require 'pry'
 
 #eve = Event.new("lucky!", "you found a sword on the ground!", "pick up the sword?", "you leave the sword as is", "you pick up a sword!", "get", 5)
 guy = Player.create(name: "guy", hp: 30, max_hp: 30, attack:7, defence:2)
-baddy = Enemy.create(name: "baddy", hp: 15, max_hp: 15,  attack:3, defence:1)
+baddy3 = Enemy.create(name: "goblin", hp: 15, max_hp: 30,  attack:3, defence:0)
+baddy2 = Enemy.create(name: "bat", hp: 15, max_hp: 15,  attack:3, defence:2)
+baddy1 = Enemy.create(name: "rabbit", hp: 15, max_hp: 7,  attack:5, defence:1)
 place = Location.create(name: "forest")
-binding.pry
+
+LocationEnemy.create(enemy_id: baddy1.id, location_id: place.id)
+LocationEnemy.create(enemy_id: baddy2.id, location_id: place.id)
+LocationEnemy.create(enemy_id: baddy3.id, location_id: place.id)
+
+enemy_list = LocationEnemy.where(location_id: "10").map do |el|
+  Enemy.find(el.enemy_id)
+end
+
 
 place.drop(guy)
 #eve.happen(guy)6

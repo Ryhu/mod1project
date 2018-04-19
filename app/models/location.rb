@@ -25,6 +25,12 @@ class Location < ActiveRecord::Base
   def drop(player)
   @player = player
   @prompt = TTY::Prompt.new(active_color: :cyan)
+
+  @enemy_list = LocationEnemy.where(location_id: self.id).map do |el|
+    Enemy.find(el.enemy_id)
+  end
+
+
   here
   end
 
@@ -68,7 +74,7 @@ class Location < ActiveRecord::Base
   #handles the monster encounter if u get one
   def random_encounter
     narrate("an enemy appears!")
-    a = Fight.new(@player)
+    a = Fight.new(@player, @enemy_list.sample)
     if a.now
       here
     end

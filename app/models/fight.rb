@@ -56,9 +56,12 @@ class Fight
       narrate("You healed 4 damage!")
       puts
     else
-      puts
-      narrate("You run away!")
-      puts
+      narrate("You attempt to run away!")
+      if (rand(0..1) == 1)
+        @battle_end = true
+      else
+        narrate("...but the enemy stopped you!")
+      end
     end
     enemy_turn
   end
