@@ -8,9 +8,25 @@ class Player < ActiveRecord::Base
   has_many :inventories
   has_many :items, through: :inventories
 
+  def load_equip
+    if defined?(@equipment)
+      @equipment
+    else
+      @equipment = []
+    end
+  end
+
+  def save_equip #equip items
+    self.inventories.each do |i|
+      i.equipped = true
+      i.save
+      self.load_equip << i.item
+    end
+  end
+
   def can_equip(item) #argument is an Item instance
-    slots = self.map do |el|
-      el.item.category
+    slots = self.load_equip.map do |el|
+      el.category
     end
     if slots.include?(item.category)
       false
@@ -31,21 +47,22 @@ class Player < ActiveRecord::Base
   def equip_replace(item) #argument is an Item instance
     #find the replaced item
     replaced = @equipment.find do |el|
-      el.type = item.type
+      el.category = item.category
     end
-    #remove the item's stats from ur boosts
-    @boosts.each do |key, val|
-      @boosts[key] -= boosts[key].to_i
-    end
+    stats = replaced.stats_translator
+    #remove the item's stats from ur stats
+    self.hp -= stats['HP'].to_i
+    self.attack -= stats['ATK'].to_i
+    self.defence -= stats['DEF'].to_i
     #remove the item from equipment
     @equipment.delete(replaced)
     #equip the new item
     equip(item)
   end
 
-  def equipment_calculate(boosts)
-    @boosts.each do |key, val|
-      @boosts[key] += boosts[key].to_i
-    end
+  def equipment_calculate(stats)
+    self.hp += stats['HP'].to_i
+    self.attack += stats['ATK'].to_i
+    self.defence += stats['DEF'].to_i
   end
 end
