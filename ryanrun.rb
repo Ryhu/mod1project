@@ -21,9 +21,9 @@ castle = Location.create(name: "castle", entrance_name: "Hillford", exit_name: "
 squalls_end  = Town.create(name: "Squall's End ", entrance_name: "castle", exit_name: "boss")
 boss = Location.create(name: "boss", entrance_name: "Squall's End", exit_name: nil)
 
-LocationEnemy.create(enemy_id: baddy1.id, location_id: place.id)
-LocationEnemy.create(enemy_id: baddy2.id, location_id: place.id)
-LocationEnemy.create(enemy_id: baddy3.id, location_id: place.id)
+LocationEnemy.create(enemy_id: baddy1.id, location_id: forest.id)
+LocationEnemy.create(enemy_id: baddy2.id, location_id: forest.id)
+LocationEnemy.create(enemy_id: baddy3.id, location_id: forest.id)
 
 
 

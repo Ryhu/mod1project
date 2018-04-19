@@ -1,16 +1,13 @@
 
 
-class Town
-
-  def initialize
-    npca = Npc.new("Jack", "Hi there buddy")
-    npcb = Npc.new("Jill", "guna get some water")
-    npcc = Npc.new("Hill", "Fear me.")
-    npc_arr = [npca,npcb,npcc]
-    @npcs = npc_arr
-  end
+class Town < ActiveRecord::Base
 
   def drop(player)
+      npca = Npc.new("Jack", "Hi there buddy")
+      npcb = Npc.new("Jill", "guna get some water")
+      npcc = Npc.new("Hill", "Fear me.")
+      npc_arr = [npca,npcb,npcc]
+      @npcs = npc_arr
     @player = player
     @name = "Hogwarts"
     @prompt = TTY::Prompt.new(active_color: :cyan)

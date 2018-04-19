@@ -1,9 +1,9 @@
-class CreateLocations < ActiveRecord::Migration[5.1]
+class CreateTowns < ActiveRecord::Migration[5.1]
   def change
-    create_table :locations do |t|
+    create_table :towns do |t|
       t.string :name
-      t.integer :entrance_id
-      t.integer :exit_id
+      t.string :entrance_name
+      t.string :exit_name
     end
   end
 end
