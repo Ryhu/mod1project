@@ -15,18 +15,14 @@ LocationEnemy.create(enemy_id: baddy1.id, location_id: place.id)
 LocationEnemy.create(enemy_id: baddy2.id, location_id: place.id)
 LocationEnemy.create(enemy_id: baddy3.id, location_id: place.id)
 
-npca = Npc.new("Jack", "Hi there buddy")
-npcb = Npc.new("Jill", "guna get some water")
-npcc = Npc.new("Hill", "Fear me.")
-npc_arr = [npca,npcb,npcc]
 
 
-town = Town.new(npc_arr)
-town.drop(guy)
+# town = Town.new
+# town.drop(guy)
 
 
-# start = Startup.new()
-# start.start
+start = Startup.new()
+start.start
 #eve.happen(guy)6
 
 

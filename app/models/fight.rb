@@ -17,6 +17,7 @@ class Fight
     @enemy = enemy
     @prompt = TTY::Prompt.new(active_color: :cyan)
     @battle_end = false
+    @enemy.hp = @enemy.max_hp
   end
 
   def now

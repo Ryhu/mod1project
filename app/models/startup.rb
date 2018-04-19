@@ -6,11 +6,19 @@ class Startup
     @prompt = TTY::Prompt.new(active_color: :cyan)
   end
 
+  def narrate(string)
+    puts
+    puts string
+    puts
+    STDIN.getch
+  end
+
   def start
     answer = @prompt.select("Welcome to mod1proj!", %w(Continue New_Game), cycle:true)
     if answer == 'Continue'
 
     else
+      puts
       create_character
     end
   end
@@ -19,9 +27,9 @@ class Startup
     @name = set_name
     @class = set_class
     newb = Player.create(name: @name, hp: 30, max_hp: 30, attack:7, defence:2)
-    puts "Welcome, #{@name} the #{@class}!"
+    narrate("Welcome, #{@name} the #{@class}!")
     #drops player in starting location
-    Location.last.drop(newb)
+    Town.new.drop(newb)
   end
 
   def set_name
@@ -58,6 +66,7 @@ class Startup
   def confirmation(text)
     puts text
     answer = @prompt.select("is that correct?", %w(Yes No), cycle:true)
+    puts
     if answer == 'Yes'
       return true
     else

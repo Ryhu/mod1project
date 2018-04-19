@@ -2,8 +2,12 @@
 
 class Town
 
-  def initialize(arr)
-    @npcs = arr
+  def initialize
+    npca = Npc.new("Jack", "Hi there buddy")
+    npcb = Npc.new("Jill", "guna get some water")
+    npcc = Npc.new("Hill", "Fear me.")
+    npc_arr = [npca,npcb,npcc]
+    @npcs = npc_arr
   end
 
   def drop(player)
@@ -21,7 +25,7 @@ class Town
   end
 
   def here
-    puts "You are in the town of #{@name}"
+    narrate("You are in the town of #{@name}")
     town_options
   end
 
@@ -59,8 +63,9 @@ class Town
   end
 
   def shop
-    puts "Welcome to the Shop!"
+    # puts "Welcome to the Shop!"
     #money stuff, work in progress
+    narrate("it's closed.")
     here
   end
 
@@ -94,7 +99,8 @@ class Town
   end
 
   def trading_post
-
+    narrate("it's closed.")
+    here
   end
 
 
