@@ -16,16 +16,12 @@ class Startup
   def start
     answer = @prompt.select("Welcome to mod1proj!", %w(Continue New_Game), cycle:true)
     if answer == 'Continue'
-      puts "Please type in your username"
-      username = gets.chomp
-      puts
-      puts "Please type in your password"
-      password = gets.chomp
-      puts
-      a = Login.find_by(username: username, password: password)
-      b = Player.find(a.player_id)
-      binding.pry
-
+      login = sign_in
+      player = Player.find(login.player_id)
+      town = Town.find_by(name: player.location)
+      narrate("Welcome, #{player.name}!")
+      narrate("You arrive in #{town.name}")
+      town.drop(player)
     else
       puts
       a = sign_up
@@ -33,10 +29,27 @@ class Startup
     end
   end
 
+  def sign_in
+    puts "Please type in your username"
+    username = gets.chomp
+    puts
+    puts "Please type in your password"
+    password = gets.chomp
+    puts
+    a = Login.find_by(username: username, password: password)
+    if a == nil
+      narrate("Could not log in with that username/password combo, returning to main menu.")
+      start
+    else
+      a
+    end
+  end
+
+  #character being dropped here
   def create_character(login)
     @name = set_name
     @class = set_class
-    newb = Player.create(name: @name, hp: 30, max_hp: 30, attack:7, defence:2)
+    newb = Player.create(name: @name, hp: 30, max_hp: 30, attack:7, defence:2, location:"Skystead", money: 50)
     narrate("Welcome, #{@name} the #{@class}!")
     #drops player in starting location
     login.player_id = newb.id

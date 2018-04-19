@@ -100,6 +100,7 @@ class Location < ActiveRecord::Base
   def leave(place)
     a = Town.find_by(name: place)
     narrate("You arrive at the #{a.name}")
+    @player.save
     a.drop(@player)
   end
 

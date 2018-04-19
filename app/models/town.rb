@@ -100,6 +100,7 @@ class Town < ActiveRecord::Base
     #find where the town exits to, find the object, and drop the player in
     a = Location.find_by(name: self.exit_name)
     narrate("You arrive at the #{a.name}")
+    @player.save
     a.drop(@player)
   end
 
