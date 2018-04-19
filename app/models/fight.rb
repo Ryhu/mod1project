@@ -2,6 +2,7 @@ require "./app/models/location"
 require "./app/models/player"
 require "./app/models/enemy"
 require 'tty-prompt'
+require "pry"
 class Fight
 
   def narrate(string)
@@ -11,7 +12,7 @@ class Fight
     STDIN.getch
   end
 
-  def initialize(player=Player.new("bob", 5,4,3), enemy=Enemy.first)
+  def initialize(player=Player.new("bob", 5,4,3), enemy=Enemy.last)
     @player = player
     @enemy = enemy
     @prompt = TTY::Prompt.new(active_color: :cyan)

@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 9) do
   create_table "enemies", force: :cascade do |t|
     t.string "name"
     t.integer "hp"
+    t.integer "max_hp"
     t.integer "attack"
     t.integer "defence"
   end
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 9) do
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.integer "hp"
+    t.integer "max_hp"
     t.integer "attack"
     t.integer "defence"
   end
