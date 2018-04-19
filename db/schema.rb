@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 10) do
   end
 
   create_table "inventories", force: :cascade do |t|
+    t.boolean "equipped"
     t.integer "item_id"
     t.integer "player_id"
   end
