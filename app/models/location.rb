@@ -1,21 +1,19 @@
+require "pry"
+
 class Location < ActiveRecord::Base
   has_many :location_enemies
   has_many :enemies, through: :location_enemies
 
   attr_accessor :current, :location
 
-  def after_initialize
-    @player = Player.new("bob", 30,5,0)
-    @prompt = TTY::Prompt.new(active_color: :cyan)
-    # size
-    #map has variable size, can be set on initiaite, OR can be set statically beforehand
-    @location_progress = 1
-    #@current_location = 0
-  end
+  # def after_initialize
+  #   # size
+  #   #map has variable size, can be set on initiaite, OR can be set statically beforehand
+  #   @location_progress = 1
+  #   #@current_location = 0
+  # end
 
-  def location
-    @location = Location.all[0].name
-  end
+
 
   def narrate(string)
     puts
@@ -24,9 +22,15 @@ class Location < ActiveRecord::Base
     STDIN.getch
   end
 
+  def drop(player)
+  @player = player
+  @prompt = TTY::Prompt.new(active_color: :cyan)
+  here
+  end
+
   #this is where you are, just prints your current location, links to options
   def here
-    puts ("you are currently in the #{self.location}")
+    puts ("you are currently in the #{self.name}")
     actions
   end
 

@@ -1,13 +1,18 @@
-require './app/models/player.rb'
-require './app/models/enemy.rb'
+require "./config/environment.rb"
 require 'pry'
 
 
+# Player.delete_all
 
 #eve = Event.new("lucky!", "you found a sword on the ground!", "pick up the sword?", "you leave the sword as is", "you pick up a sword!", "get", 5)
-guy = Player.create({name: "guy", hp: 30, attack:7, defence:2})
-puts Player.find_by(name: "guy")
-#eve.happen(guy)
+guy = Player.create(name: "guy", hp: 30, attack:7, defence:2)
+place = Location.create(name: "forest")
+baddy = Enemy.create(name: "guy", hp: 15, attack:3, defence:1)
+
+
+binding.pry
+place.drop(guy)
+#eve.happen(guy)6
 
 
 

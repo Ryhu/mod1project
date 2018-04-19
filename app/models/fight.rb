@@ -11,7 +11,7 @@ class Fight
     STDIN.getch
   end
 
-  def initialize(player=Player.new("bob", 5,4,3), enemy=Enemy.all)
+  def initialize(player=Player.new("bob", 5,4,3), enemy=Enemy.first)
     @player = player
     @enemy = enemy
     @prompt = TTY::Prompt.new(active_color: :cyan)
