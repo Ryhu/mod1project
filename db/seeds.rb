@@ -29,10 +29,24 @@ axe = Item.find_or_create_by(name: "axe", category: "weapon", stats: "10,5,0")
 
 
 
-guy = Player.create(name: "guy", hp: 30, max_hp: 30, attack:7, defence:2)
+guy = Player.create(name: "guy", hp: 30, max_hp: 30, attack:7, defence:2, location: "Skystead")
+shun = Player.create(name: "shun", hp: 30, max_hp: 30, attack:7, defence:2, location: "Carleone")
+alice = Player.create(name: "alice", hp: 30, max_hp: 30, attack:7, defence:2, location: "Skystead")
+ryan = Player.create(name: "ryan", hp: 30, max_hp: 30, attack:7, defence:2, location: "Skystead")
+jaina = Player.create(name: "jaina", hp: 30, max_hp: 30, attack:7, defence:2, location: "Carleone")
+tyrael = Player.create(name: "tyrael", hp: 30, max_hp: 30, attack:7, defence:2, location: "Carleone")
+
+log1 = Login.create(username: 'alice', password: 'alice', player_id:3)
+log1 = Login.create(username: 'shun', password: 'shun', player_id:2)
+log1 = Login.create(username: 'guy', password: 'guy', player_id:1)
+
 baddy3 = Enemy.create(name: "goblin", hp: 15, max_hp: 30,  attack:3, defence:0)
-baddy2 = Enemy.create(name: "bat", hp: 15, max_hp: 15,  attack:3, defence:2)
+baddy2 = Enemy.create(name: "Ragneros The Fyrelord", hp: 3000, max_hp: 3000,  attack:3, defence:2)
 baddy1 = Enemy.create(name: "rabbit", hp: 15, max_hp: 7,  attack:5, defence:1)
+scorpion = Enemy.create(name: "scorpion", hp: 15, max_hp: 7,  attack:8, defence:5)
+cobra = Enemy.create(name: "cobra", hp: 17, max_hp: 7,  attack:5, defence:3)
+cactus = Enemy.create(name: "cactus", hp: 10, max_hp: 7,  attack:5, defence:3)
+camel = Enemy.create(name: "camel", hp: 20, max_hp: 7,  attack:5, defence:3)
 
 skystead = Town.create(name: "Skystead", entrance_name: nil, exit_name: "forest")
 forest = Location.create(name: "forest", entrance_name: "Skystead", exit_name: "Carleone")
@@ -48,3 +62,16 @@ boss = Location.create(name: "boss", entrance_name: "Squall's End", exit_name: n
 LocationEnemy.create(enemy_id: baddy1.id, location_id: forest.id)
 LocationEnemy.create(enemy_id: baddy2.id, location_id: forest.id)
 LocationEnemy.create(enemy_id: baddy3.id, location_id: forest.id)
+LocationEnemy.create(enemy_id: camel.id, location_id: desert.id)
+LocationEnemy.create(enemy_id: scorpion.id, location_id: desert.id)
+LocationEnemy.create(enemy_id: cactus.id, location_id: desert.id)
+LocationEnemy.create(enemy_id: cobra.id, location_id: desert.id)
+
+
+Inventory.create(player_id: 1, item_id:1)
+Inventory.create(player_id: 1, item_id:2)
+Inventory.create(player_id: 2, item_id:1)
+Inventory.create(player_id: 2, item_id:3)
+Inventory.create(player_id: 3, item_id:1)
+Inventory.create(player_id: 3, item_id:4)
+Inventory.create(player_id: 4, item_id:5)

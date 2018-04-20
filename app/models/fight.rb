@@ -109,7 +109,10 @@ class Fight
     #battle_end is not needed for player turn, because combat ends either at the end of player turn, or end
     #of monster turn. because messages are done afterthe turns, player turn will not start if conditions met.
     if !@battle_end
-      attacks =  [["scratch", 1], ["bite", 3]]
+      attacks =  [["scratch", 4], ["bite", 6]]
+      if @enemy.name == "Ragneros The Fyrelord"
+        attacks = [["PYROBLAST", 200]]
+      end
       roll = rand(0...attacks.length)
       attack = attacks[roll]
 

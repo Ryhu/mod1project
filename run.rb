@@ -32,6 +32,7 @@ require 'pry'
 #
 #
 # Town.first.drop(a)
+
 start = Startup.new()
 
 start.start

@@ -101,39 +101,68 @@ class Town < ActiveRecord::Base
     if @player.items == []
       narrate("you have no items!")
     else
+      #puts a name list of all players at location
       players_here = Player.where(location: self.name)
       names = players_here.map do |el|
         el.name
       end
-      answer = @prompt.select("Who will you trade with?", names, cycle:true, per_page:4)
+      names.delete(@player.name)
+      #asks who trade with names
+      answer = @prompt.select("Who will you trade with?", names, cycle:true, per_page:3)
+      #finds player object with right name
       trade_with = players_here.find do |el|
-        el.name = answer
+        el.name == answer
       end
 
+      #list of that dude's items
       dudes_items = trade_with.items.map do |el|
         el.name
       end
 
+      #list of my items
       my_items = @player.items.map do |el|
         el.name
       end
 
+      #finds the name of the item, then finds item based on name - for them
       answer2 = @prompt.select("What do you want to trade for?", dudes_items, cycle:true, per_page:4)
       itema = trade_with.items.find do |el|
         el.name == answer2
       end
+
+      #finds the name of the item, then finds item based on name - for u
       answer3 = @prompt.select("What do you want to give?", my_items, cycle:true, per_page:4)
       itemb = @player.items.find do |el|
         el.name == answer3
       end
+
+      #where the actual trading happens
+
+      player_count = @player.items.select do |el|
+        el == itemb
+      end
+      player_counter = player_count.length - 1
+
+      dude_count = trade_with.items.select do |el|
+        el == itema
+      end
+      dude_counter = dude_count.length - 1
 
       @player.items.delete(itemb)
       trade_with.items.delete(itema)
       @player.items << itema
       trade_with.items << itemb
 
+      player_counter.times do
+        @player.items << itemb
+      end
+
+      dude_counter.times do
+        @player.items << itemb
+      end
+
       narrate "Trade successful!"
-      narrate "you traded your #{answer3} for #{trade_with.name}'s #{answer2}!"
+      narrate "you traded #{trade_with.name}'s #{answer2} for your #{answer3} !"
     end
     here
   end
@@ -144,7 +173,6 @@ class Town < ActiveRecord::Base
     a = Location.find_by(name: self.exit_name)
     narrate("You arrive at the #{a.name}")
     @player.save
-    @player.save_equip
     a.drop(@player)
   end
 

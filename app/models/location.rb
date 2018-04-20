@@ -116,6 +116,19 @@ class Location < ActiveRecord::Base
     a = Fight.new(@player, @enemy_list.sample)
     if a.now
       here
+    else
+
+      #here is where u die
+      STDIN.getch
+      puts
+      puts "There is only one god and his name is Death. And there is only one thing we say to Death: Not today."
+      
+      STDIN.getch
+      puts
+
+
+      start = Startup.new()
+      start.start
     end
   end
 
