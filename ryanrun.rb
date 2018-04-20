@@ -28,8 +28,10 @@ require 'pry'
 
 # town = Town.new
 # town.drop(guy)
-
-
+# a = Player.first
+#
+#
+# Town.first.drop(a)
 start = Startup.new()
 
 start.start

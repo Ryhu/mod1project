@@ -70,11 +70,34 @@ class Location < ActiveRecord::Base
         narrate("you retreat backwards")
         encounter_check
       end
-    else
-
-      narrate("#{@player.name} has #{@player.hp} hp.")
-
+    elsif answer == 'Status'
+      narrate("#{@player.name} has #{@player.hp} hp, #{@player.attack} attack, and #{@player.defence} defence")
+      str = ""
+      a = @player.equipment.map do |el|
+        el.name
+      end
+      b = a.join(", ")
+      narrate("#{@player.name} has the following items equipped: #{b}")
       here
+    elsif answer == 'Items'
+      answer = @prompt.select("Items Menu", %w(Equip_item Look_item), cycle:true, per_page:4)
+      if answer == 'Equip_item'
+        #list inventory
+        stuff = @player.items.map do |el|
+          el.name
+        end
+        #select an item from inventory
+        answer = @prompt.select("Items Menu", stuff, cycle:true, per_page:4)
+        #find that item again
+        to_eq = @player.items.find do |el|
+          el.name == answer
+        end
+        binding.pry
+        #equip that item
+        @player.equip(to_eq)
+        narrate( "You have equipped the #{to_eq.name}!")
+        actions
+      end
     end
   end
 

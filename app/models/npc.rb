@@ -1,10 +1,11 @@
 
 class Npc
-  attr_accessor :name, :message
+  attr_accessor :name, :message, :value
 
-  def initialize(name, message)
+  def initialize(name, message, value = nil)
     @name = name
-    @message = message 
+    @message = message
+    @value = value
   end
 
 

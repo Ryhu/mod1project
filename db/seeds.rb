@@ -1,20 +1,7 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-# require 'faker'
-# require 'pry'
-# require 'tty-prompt'
-#
-=======
->>>>>>> shun
 require 'faker'
 require 'pry'
 require 'tty-prompt'
 
-<<<<<<< HEAD
-=======
->>>>>>> b0e370ad6e5f2f6cb3d025ac8ef0393dfb419e18
->>>>>>> shun
 # p1 = Player.find_or_create_by(name: Faker::GameOfThrones.unique.character, max_hp: 100, atk_amount: 5, def_amount: 5, xp: 0, level: 1)
 # p2 = Player.find_or_create_by(name: Faker::GameOfThrones.unique.character, max_hp: 100, atk_amount: 5, def_amount: 5, xp: 0, level: 1)
 #
@@ -33,13 +20,12 @@ require 'tty-prompt'
 # LocationEnemy.find_or_create_by(enemy_id: 3, location_id: 2)
 #
 # Pry.start
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> shun
 
-
+sword = Item.find_or_create_by(name: "sword", category: "weapon", stats: "0,5,0")
+chainmail = Item.find_or_create_by(name: "chainmail", category: "body", stats: "0,0,3")
+ironpants = Item.find_or_create_by(name: "iron pants", category: "lower", stats: "10,0,0")
+helmet = Item.find_or_create_by(name: "helmet", category: "head", stats: "5,0,2")
+axe = Item.find_or_create_by(name: "axe", category: "weapon", stats: "10,5,0")
 
 
 
@@ -62,7 +48,3 @@ boss = Location.create(name: "boss", entrance_name: "Squall's End", exit_name: n
 LocationEnemy.create(enemy_id: baddy1.id, location_id: forest.id)
 LocationEnemy.create(enemy_id: baddy2.id, location_id: forest.id)
 LocationEnemy.create(enemy_id: baddy3.id, location_id: forest.id)
-<<<<<<< HEAD
-=======
->>>>>>> b0e370ad6e5f2f6cb3d025ac8ef0393dfb419e18
->>>>>>> shun

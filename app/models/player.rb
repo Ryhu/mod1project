@@ -8,7 +8,7 @@ class Player < ActiveRecord::Base
   has_many :inventories
   has_many :items, through: :inventories
 
-  def load_equip
+  def equipment
     if defined?(@equipment)
       @equipment
     else
@@ -17,15 +17,15 @@ class Player < ActiveRecord::Base
   end
 
   def save_equip #equip items
-    self.inventories.each do |i|
-      i.equipped = true
-      i.save
-      self.load_equip << i.item
+    @equipment.each do |el|
+      a = Inventory.find_by(player_id: self.id, item_id: el.id)
+      a.equipped = true
+      a.save
     end
   end
 
   def can_equip(item) #argument is an Item instance
-    slots = @equipment.map do |el|
+    slots = equipment.map do |el|
       el.category
     end
     if slots.include?(item.category)
@@ -37,35 +37,33 @@ class Player < ActiveRecord::Base
 
   def equip(item) #argument is an Item instance
     if can_equip(item)
-      @equipment << item
+      equipment << item
       equipment_calculate(item)
     else
       equip_replace(item)
     end
-    self.items << item
   end
 
   def equip_replace(item) #argument is an Item instance
     #find the replaced item
-    replaced = @equipment.find do |el|
+    replaced = equipment.find do |el|
       el.category == item.category
     end
     stats = replaced.stats_translator
     #remove the item's stats from ur stats
-    self.hp -= stats['HP'].to_i
+    self.max_hp -= stats['HP'].to_i
     self.attack -= stats['ATK'].to_i
     self.defence -= stats['DEF'].to_i
     #remove the item from equipment
-    self.load_equip.delete(replaced)
-    self.items.where(name: replaced.name).each {|o| o.destroy}
-    binding.pry
+    self.equipment.delete(replaced)
+
     #equip the new item
     equip(item)
   end
 
   def equipment_calculate(item)
     stats = item.stats_translator
-    self.hp += stats['HP'].to_i
+    self.max_hp += stats['HP'].to_i
     self.attack += stats['ATK'].to_i
     self.defence += stats['DEF'].to_i
   end
