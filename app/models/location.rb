@@ -103,7 +103,7 @@ class Location < ActiveRecord::Base
 
   #roll for monster apearances
   def encounter_check
-    if (rand(0..0) == 1)
+    if (rand(0..2) == 1)
       random_encounter
     else
       here

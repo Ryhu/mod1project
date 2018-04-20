@@ -98,7 +98,43 @@ class Town < ActiveRecord::Base
   end
 
   def trading_post
-    narrate("it's closed.")
+    if @player.items == []
+      narrate("you have no items!")
+    else
+      players_here = Player.where(location: self.name)
+      names = players_here.map do |el|
+        el.name
+      end
+      answer = @prompt.select("Who will you trade with?", names, cycle:true, per_page:4)
+      trade_with = players_here.find do |el|
+        el.name = answer
+      end
+
+      dudes_items = trade_with.items.map do |el|
+        el.name
+      end
+
+      my_items = @player.items.map do |el|
+        el.name
+      end
+
+      answer2 = @prompt.select("What do you want to trade for?", dudes_items, cycle:true, per_page:4)
+      itema = trade_with.items.find do |el|
+        el.name == answer2
+      end
+      answer3 = @prompt.select("What do you want to give?", my_items, cycle:true, per_page:4)
+      itemb = @player.items.find do |el|
+        el.name == answer3
+      end
+
+      @player.items.delete(itemb)
+      trade_with.items.delete(itema)
+      @player.items << itema
+      trade_with.items << itemb
+
+      narrate "Trade successful!"
+      narrate "you traded your #{answer3} for #{trade_with.name}'s #{answer2}!"
+    end
     here
   end
 
@@ -116,7 +152,6 @@ class Town < ActiveRecord::Base
     a = Item.find(npc.value)
     @player.items << a
     narrate( "You recieved a #{a.name}!")
-    binding.pry
   end
 
   def status
@@ -131,9 +166,9 @@ class Town < ActiveRecord::Base
   end
 
   def items
-    answer = @prompt.select("Items Menu", %w(Equip_item Look_item), cycle:true, per_page:4)
-    if answer == 'Equip_item'
-      #list inventory
+    if @player.items == []
+      narrate("You have no items!")
+    else
       stuff = @player.items.map do |el|
         el.name
       end
@@ -143,12 +178,11 @@ class Town < ActiveRecord::Base
       to_eq = @player.items.find do |el|
         el.name == answer
       end
-      binding.pry
       #equip that item
       @player.equip(to_eq)
       narrate( "You have equipped the #{to_eq.name}!")
-      town_options
     end
+      town_options
   end
 
   #what do you do in Town
